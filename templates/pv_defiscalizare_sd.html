@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Proces Verbal</title>
+    <link rel="stylesheet" href="/static/pv_defiscalizare_sd.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pizzip/3.0.0/pizzip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.25.0/docxtemplater.js"></script>
+    <style>
+        /* Ascunde butoanele la imprimare */
+        @media print {
+            #salveaza_pdf, #imprima, button[type='button'] {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="document">
+        <div class="a4" style="page-break-after: avoid">
+            <h1> Proces Verbal</h1>
+            <p class="subtitlu">Incheiat astazi <input type="date" style="width: 120px; font-size: 14px; "></p>
+
+            <form id="formPv" method="POST">
+                <p class="paragraf" style="font-size: 15px; ">
+                    Subsemnatul Rogoz Ramona / Bura Florin Ovidiu,  inspector / referent in cadrul "Administratia Judeteana a Finantelor Publice" Satu Mare
+                    in baza ordinului de deplasare nr. _________ emis de A.J.F.P Satu Mare si a prevederilor O.G 64/16.01.2002, m-am deplasat la
+                    ________________________________________________________________________________
+                </p>
+                <div class="dynamic_input">
+                    In prezenta tehnicianului
+                    <input type="text" name="nume" placeholder="Reprezentant SD" style="width: 230px; font-size: 14px"> de la S.C. SECRET DATA S.R.L. din Satu Mare, Str. Avram Iancu, Nr. 17, avand
+                    codul fiscal RO9740584  si nr. inregistrare la Registru Comertului J30/594/1997, distribuitor autorizat a A.M.E.F. cu aviz distributie nr.
+                    <input type="text" name="aviz" placeholder="Aviz" style="width: 40px; font-size: 14px">si avand legitimatia de serviciu
+                    <input type="text" name="legitimatie" placeholder="Nr." style="width: 45px; font-size: 14px">, s-a procedat la efectuarea urmatoarelor verificari:<br>
+
+                    <div class="data_activitate">
+                        - citirea memoriei fiscale pe perioada desfasurarii activitatii:
+                        <input type="text" name="data_activitate" placeholder="Perioada activitate" style="width: 200px; font-size: 14px; position: relative; right: -91px; text-align:right;">
+                    </div>
+
+                    <div class="total_incasari" style="text-align: left; margin-left: -60px;">
+                        - raport fiscal sumar - suma totala a incasarilor este de (RON):
+                        <input type="text" name="suma_incasari" placeholder="Total incasari" style="width: 220px; font-size: 14px; position: relative; right: -49px; text-align:right;">
+                    </div>
+
+                    <div class="tva_container">
+                        din care TVA (RON): <input type="text" name="total_tva" placeholder="Total TVA" style="width: 150px; font-size: 14px; margin-right: -2px; text-align:right;">
+                    </div>
+                    <ul style="margin: 0; margin-left: -100px; list-style-type: none;">
+                        <li>- la ridicarea memoriei fiscale si a rolei aferente,</li>
+                        <li>- montarea, sigilarea si initializarea memoriei fiscale noi in vederea aducerii in parametrii conform</li>
+                            <li>
+                                legii a AMEF:
+                                <label for="amef_da">
+                                    <input type="radio" id="amef_da" name="amef" value="DA"> DA
+                                </label>
+                                <label for="amef_nu">
+                                    <input type="radio" id="amef_nu" name="amef" value="NU"> NU
+                                </label>
+                                ( a fost / nu a fost efectuata operatiunea de montare )
+                            </li>
+                        <li>
+                            - motivul ridicarii memoriei:
+                            <input type="text" name="motiv_predare" placeholder="Motiv predare" style="width: 300px; font-size: 14px;">
+                        </li>
+                    </ul>
+                </div>
+                <p style="margin-top: 3px;">
+                    AMEF marca:
+                </p>
+                <div class="informatii_amef" style="margin-top: 3px;">
+                    <div class="camp">
+                        <label for="model_amef">Model AMEF:</label>
+                        <input type="text" id="model_amef" name="model_amef" placeholder="Model casa" required>
+                    </div>
+
+                    <div class="camp">
+                        <label for="serie_amef">Serie AMEF:</label>
+                        <input type="text" id="serie_amef" name="serie_amef" placeholder="Serie casa" required>
+                    </div>
+
+                    <div class="camp">
+                        <label for="serie_fiscala">Serie fiscală:</label>
+                        <input type="text" id="serie_fiscala" name="serie_fiscala" placeholder="Serie fiscala casa" required>
+                    </div>
+                </div>
+                <p>
+                    este proprietatea
+                    <input type="text" name="nume_companie" placeholder="Nume companie" style="width: 300px; font-size: 14px;">
+                    cu sediul in localitatea
+                    <input type="text" name="adresa_companie" placeholder="Adresa sediu" style="width: 467px; font-size: 14px;">
+                    avand codul fiscal
+                    <input type="text" name="ced_fiscal" placeholder="Cod fiscal" style="width: 100px; font-size: 14px;">
+                    cu punctul de lucru
+                    <input type="text" name="adresa_companie" placeholder="Adresa sediu" style="width: 467px; font-size: 14px;">
+                    reprezentata prin
+                    <input type="text" name="nume_admin" placeholder="Reprezentant companie" style="width: 230px; font-size: 14px">
+                    in calitate de ADMINISTRATOR.
+                </p>
+                <p style="margin-top:3px;">
+                    Conform OUG 91 din 23.12.2014, Art. 4, alin. (9), operatorul economic
+                    <input type="text" name="nume_companie" placeholder="Nume companie" style="width: 300px; font-size: 14px;">
+                    este obligat sa asigure pastrarea si arhivarea memoriei fiscale pentru o perioada de 10 ani.<br>
+                    <p style="text-indent: 60px">
+                        Procesul verbal s-a incheiat in 4 exemplare, din care doua exemplare au fost inregistrate si depuse la SC SECRET DATA SRL,
+                        al treilea exemplar la D.G.F.P Satu Mare - Serviciul Autorizari si supraveghere fiscala, iar un exemplar la proprietarul AMEF.
+                    </p>
+                </p>
+                <p>
+                    Prin semnarea procesului verbal, operatorul economic, reprezentat de
+                    <input type="text" name="nume_admin" placeholder="Reprezentant companie" style="width: 230px; font-size: 14px">
+                    primeste spre pastrare si arhivare memoria fiscala, jurnalul electronic, carte interventie si registru special.
+                </p>
+                <div class="semnaturi_pag1">
+                    <div class="semnatura_finante"><br>
+                        Reprezentant Finante<br>
+                        Semnatura<br>................................
+                    </div>
+                    <div class="semnatura_service"><br>
+                        Tehnician Service<br>
+                        Semnatura<br>................................
+                    </div>
+                    <div class="semnatura_beneficiar" style="margin-top: -2px;"><br>
+                        Proprietar AMEF<br>
+                        Semnatura<br>................................
+                    </div>
+                </div>
+                <div class="container_butoane">
+                    <button type="button" id="Salveaza_PDF">Salvează PDF</button>
+                    <button type="button" id="Imprima">Imprimă</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Ascunde butoanele pentru PDF la imprimare
+            var salveazaPdfButton = document.getElementById("Salveaza_PDF");
+            var imprimaButton = document.getElementById("Imprima");
+
+            function hideButtons() {
+                salveazaPdfButton.style.display = 'none';
+                imprimaButton.style.display = 'none';
+            }
+
+            function showButtons() {
+                salveazaPdfButton.style.display = 'inline-block';
+                imprimaButton.style.display = 'inline-block';
+            }
+
+            salveazaPdfButton.addEventListener("click", function () {
+                hideButtons();
+                const element = document.getElementById("document");
+                const opt = {
+                margin: [0, 0, 0, 0], // sus, stanga, jos, dreapta
+                filename: 'pv_defiscalizare_sd.pdf',
+                image: { type: 'jpeg', quality: 1 },
+                html2canvas: {
+                    scale: 3,
+                    useCORS: true
+                },
+                jsPDF: {
+                    unit: 'mm',
+                    format: 'a4',
+                    orientation: 'portrait'
+                },
+                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+            };
+
+                html2pdf().from(element).set(opt).save().then(function () {
+                    showButtons();
+                });
+            });
+
+            imprimaButton.addEventListener("click", function () {
+                hideButtons();
+                window.print(); // Deschide fereastra de imprimare
+                setTimeout(function () {
+                    showButtons();
+                }, 1000); // Reîntoarce butoanele după un scurt delay
+            });
+        });
+    </script>
+    <script>
+    window.addEventListener("beforeunload", function () {
+        navigator.sendBeacon("/shutdown");
+    });
+    </script>
+
+    <script>
+        window.addEventListener("beforeunload", function () {
+            navigator.sendBeacon("/shutdown");
+        });
+    </script>
+</body>
+</html>
